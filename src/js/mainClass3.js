@@ -107,3 +107,31 @@ function animate(time) {
     );
 
 }
+
+// 2. Handle Responsive Resizing
+function onWindowResize() {
+  // Update camera aspect ratio based on the new container bounds
+  camera.aspect = window.innerWidth / window.innerHeight;
+  
+  // Crucial: Update the projection matrix to apply changes
+  camera.updateProjectionMatrix();
+
+  // Update renderer size and pixel ratio
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+}
+
+// 3. Listen for the resize event
+window.addEventListener('resize', onWindowResize);
+
+function changeVisibilityObject() {
+    isWireframe = !isWireframe;
+    meshes.forEach( ( mesh ) => {
+        mesh.material.wireframe = isWireframe;
+
+        button.textContent = isWireframe ? 'Change Wireframe (true)' : 'Change Wireframe (false)';
+    });
+}
+
+const button = document.getElementById( 'chWirerframe' );
+button.addEventListener( 'click', changeVisibilityObject );
