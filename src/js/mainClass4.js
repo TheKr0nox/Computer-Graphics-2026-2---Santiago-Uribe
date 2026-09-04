@@ -15,6 +15,20 @@ document.body.appendChild(renderer.domElement);
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambientLight);
 
+function animate(time) {
+    renderer.render(scene, camera);
+    controls.update();
+
+    meshes.forEach((mesh) => {
+        const speed = 0.0005;
+
+        mesh.rotation.x = time * speed;
+        mesh.rotation.y = time * speed;
+    }
+    );
+
+}
+
 const light = new THREE.DirectionalLight(0xffffff, 1.2);
 light.position.set(0, 10, 50);
 scene.add(light);
@@ -149,20 +163,6 @@ scene.add(gridHelper);
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 
-function animate(time) {
-    renderer.render(scene, camera);
-    controls.update();
-
-    meshes.forEach((mesh) => {
-        const speed = 0.0005;
-
-        mesh.rotation.x = time * speed;
-        mesh.rotation.y = time * speed;
-    }
-    );
-
-}
-
 // 2. Handle Responsive Resizing
 function onWindowResize() {
     // Update camera aspect ratio based on the new container bounds
@@ -179,15 +179,5 @@ function onWindowResize() {
 // 3. Listen for the resize event
 window.addEventListener('resize', onWindowResize);
 
-function animate(time) {
-    renderer.render(scene, camera);
-    if (controls) controls.update();
-
-    meshes.forEach((mesh) => {
-        const speed = 0.0009;
-        mesh.rotation.x = time * speed;
-        mesh.rotation.y = time * speed;
-    });
-}
 
 
