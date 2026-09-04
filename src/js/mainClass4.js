@@ -9,25 +9,16 @@ scene.background = new THREE.Color(backgroundColor);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setAnimationLoop(animate);
+const controls = new OrbitControls(camera, renderer.domElement);
+camera.position.set(20, 30, 50);
+controls.update();
+
 document.body.appendChild(renderer.domElement);
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambientLight);
 
-function animate(time) {
-    renderer.render(scene, camera);
-    controls.update();
 
-    meshes.forEach((mesh) => {
-        const speed = 0.0005;
-
-        mesh.rotation.x = time * speed;
-        mesh.rotation.y = time * speed;
-    }
-    );
-
-}
 
 const light = new THREE.DirectionalLight(0xffffff, 1.2);
 light.position.set(0, 10, 50);
@@ -134,8 +125,6 @@ shapeData.forEach((shape) => {
     });
     const mesh = new THREE.Mesh(shape.geometry, material);
     mesh.position.x = shape.posX;
-    scene.add(mesh);
-    meshes.push(mesh);
 
     if (shape.name === 'Saturno') {
         const ringGeo = new THREE.RingGeometry(2, 2.8, 20);
@@ -149,9 +138,21 @@ shapeData.forEach((shape) => {
     meshes.push(mesh);
 });
 
-const controls = new OrbitControls(camera, renderer.domElement);
-camera.position.set(20, 30, 50);
-controls.update();
+function animate(time) {
+    renderer.render(scene, camera);
+    controls.update();
+
+    meshes.forEach((mesh) => {
+        const speed = 0.0005;
+
+        mesh.rotation.x = time * speed;
+        mesh.rotation.y = time * speed;
+    }
+    );
+
+}
+
+renderer.setAnimationLoop(animate);
 
 // Grid  Helper 
 const size = 10;
@@ -178,6 +179,3 @@ function onWindowResize() {
 
 // 3. Listen for the resize event
 window.addEventListener('resize', onWindowResize);
-
-
-
