@@ -179,6 +179,15 @@ function onWindowResize() {
 // 3. Listen for the resize event
 window.addEventListener('resize', onWindowResize);
 
+function animate(time) {
+    renderer.render(scene, camera);
+    if (controls) controls.update();
 
+    meshes.forEach((mesh) => {
+        const speed = 0.0009;
+        mesh.rotation.x = time * speed;
+        mesh.rotation.y = time * speed;
+    });
+}
 
 
