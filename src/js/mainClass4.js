@@ -18,13 +18,10 @@ document.body.appendChild(renderer.domElement);
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambientLight);
 
-
-
 const light = new THREE.DirectionalLight(0xffffff, 1.2);
 light.position.set(0, 10, 50);
 scene.add(light);
 
-// Definition of primitive shapes 
 const shapeData = [
 
     {
@@ -136,7 +133,8 @@ shapeData.forEach((shape) => {
     }
     scene.add(mesh);
     meshes.push(mesh);
-});
+}
+);
 
 function animate(time) {
     renderer.render(scene, camera);
