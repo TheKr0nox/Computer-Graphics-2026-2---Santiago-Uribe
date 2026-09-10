@@ -240,11 +240,6 @@ shapeData.forEach((shape) => {
     scene.add(mesh);
 });
 
-// En esta seccion, debes crear la rueda de la fortuna utilizando geometrías y materiales de Three.js. 
-const numCabinas = 8;
-const radioRueda = 6;
-const cabinas = [];
-
 // Loop de Animación
 let velocidadGiro = 0.01;
 
